@@ -7,9 +7,8 @@ on:
         description: The tags that will be applied to the image.
         required: true
         default: '["latest"]'
-      # List the required build arguments here.
-      base:
-        description: An example build argument which specifies the base image tag to use.
+      node-version:
+        description: The node version to use for the build.
         required: true
 
 jobs:
@@ -35,7 +34,7 @@ jobs:
         with:
           service: base
           tags: ${{ fromJson(inputs.tags) }}
-          build-arguments: '{"BASE": "${{ inputs.base }}"}'
+          build-arguments: '{"NODE_VERSION": "${{ inputs.node-version }}"}'
       - name: Show published images
         run: |
           echo "${{ steps.docker-publish.outputs.published }}"
